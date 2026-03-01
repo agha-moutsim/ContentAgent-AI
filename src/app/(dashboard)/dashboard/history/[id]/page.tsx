@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { HistoryRecord } from '@/backend/types';
 import Link from 'next/link';
 
@@ -9,11 +9,7 @@ export default function HistoryDetailPage({ params }: { params: { id: string } }
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchRecord();
-  }, [params.id]);
-
-  const fetchRecord = async () => {
+  const fetchRecord = useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch(`/api/history/${params.id}`);
@@ -30,7 +26,11 @@ export default function HistoryDetailPage({ params }: { params: { id: string } }
     } finally {
       setLoading(false);
     }
-  };
+  }, [params.id]);
+
+  useEffect(() => {
+    fetchRecord();
+  }, [fetchRecord]);
 
   if (loading) {
     return (

@@ -3,7 +3,7 @@ import { requireAuth } from '@/backend/middleware/auth';
 import { createGeminiCompletion } from '@/backend/services/gemini';
 
 export async function POST(request: Request) {
-  return await requireAuth(request as any, async (req) => {
+  return await requireAuth(request as any, async (_req) => {
     try {
       const { examples } = await request.json();
 
