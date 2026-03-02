@@ -19,7 +19,13 @@ export async function POST(request: Request) {
         );
       }
 
-      let appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+      // Dynamically extract the true current app domain to prevent Stripe from rejecting
+      // missing or malformed Vercel environment variables.
+      let appUrl = request.headers.get('origin') || 
+                   (request.headers.get('host') ? `https://${request.headers.get('host')}` : null) ||
+                   process.env.NEXT_PUBLIC_APP_URL || 
+                   'http://localhost:3000';
+                   
       if (!appUrl.startsWith('http')) {
         appUrl = `https://${appUrl}`;
       }
