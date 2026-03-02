@@ -19,12 +19,17 @@ export async function POST(request: Request) {
         );
       }
 
+      let appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+      if (!appUrl.startsWith('http')) {
+        appUrl = `https://${appUrl}`;
+      }
+
       const session = await stripe.checkout.sessions.create({
         mode: 'subscription',
         payment_method_types: ['card'],
         line_items: [{ price: priceId, quantity: 1 }],
-        success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?upgraded=true`,
-        cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pricing`,
+        success_url: `${appUrl}/dashboard?upgraded=true`,
+        cancel_url: `${appUrl}/pricing`,
         metadata: {
           userId: String(req.user!.userId),
         },
