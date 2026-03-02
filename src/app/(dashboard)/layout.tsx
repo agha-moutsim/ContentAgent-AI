@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { verifyToken } from '@/backend/utils/jwt';
 import UserProfile from '@/frontend/components/UserProfile';
+import MobileNav from '@/frontend/components/MobileNav';
 
 export const dynamic = 'force-dynamic';
 
@@ -48,7 +49,16 @@ export default async function DashboardLayout({
 
   return (
     <div className="flex h-screen bg-[#09090b] text-white">
-      {/* Sidebar */}
+
+      {/* Mobile Navigation (drawer + top bar + bottom tabs) */}
+      <MobileNav
+        displayName={displayName}
+        email={email}
+        avatarUrl={avatarUrl}
+        isPro={isPro}
+      />
+
+      {/* Desktop Sidebar */}
       <div className="hidden md:flex md:flex-shrink-0">
         <div className="flex flex-col w-72">
           <div className="flex flex-col h-full glass border-r border-white/5">
@@ -124,8 +134,9 @@ export default async function DashboardLayout({
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-pink-600/10 blur-[120px] rounded-full -z-10" />
 
         <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
-          <div className="py-10">
-            <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 animate-fade-in">
+          {/* pt-16 on mobile for the top bar, pb-20 for the bottom tab bar, md resets to standard */}
+          <div className="pt-16 pb-20 md:pt-0 md:pb-0 md:py-10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 animate-fade-in">
               {children}
             </div>
           </div>

@@ -358,7 +358,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="space-y-12 pb-20">
+    <div className="space-y-8 md:space-y-12 pb-20">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2">
         <div className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
@@ -369,7 +369,7 @@ export default function DashboardPage() {
             </span>
             AI Engine Online
           </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-3">
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-3">
             Create <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Magic</span>
           </h1>
           <p className="text-gray-400 max-w-md leading-relaxed">
@@ -395,10 +395,10 @@ export default function DashboardPage() {
         </div>
       </div>
       
-      <div className="bento-grid">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Form Column - Bento Card */}
         <div className="lg:col-span-5 h-fit animate-fade-in" style={{ animationDelay: '0.3s' }}>
-          <div className="glass p-10 rounded-[2.5rem] border-white/10 relative overflow-hidden group shadow-2xl">
+          <div className="glass p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border-white/10 relative overflow-hidden group shadow-2xl">
             <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/5 blur-[100px] -z-10 group-hover:bg-indigo-600/10 transition-all duration-700" />
             
             <div className="flex items-center gap-3 mb-8">
