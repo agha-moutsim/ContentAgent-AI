@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+
+export const dynamic = 'force-dynamic';
 import { stripeService } from '@/backend/services/stripe';
 import { requireAuth } from '@/backend/middleware/auth';
 

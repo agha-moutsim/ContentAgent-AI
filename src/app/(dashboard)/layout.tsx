@@ -4,6 +4,8 @@ import { redirect } from 'next/navigation';
 import { verifyToken } from '@/backend/utils/jwt';
 import UserProfile from '@/frontend/components/UserProfile';
 
+export const dynamic = 'force-dynamic';
+
 import { query } from '@/backend/db/client';
 
 export default async function DashboardLayout({

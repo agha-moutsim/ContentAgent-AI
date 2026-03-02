@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { requireAuth } from '@/backend/middleware/auth';
 import { queryOne } from '@/backend/db/client';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * GET /api/auth/profile
  * Returns the current authenticated user's profile from the database

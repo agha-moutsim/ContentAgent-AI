@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createUser, authenticateUser } from '@/backend/services/auth';
+
+export const dynamic = 'force-dynamic';
 // It seems createUser WAS exported in the file I viewed.
 
 export async function POST(request: Request) {

@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+
+export const dynamic = 'force-dynamic';
 import { scrapeUrl } from '@/backend/services/urlScraper';
 import { requireAuth } from '@/backend/middleware/auth';
 

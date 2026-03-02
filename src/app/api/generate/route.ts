@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+
+export const dynamic = 'force-dynamic';
 import { aiPipelineService } from '@/backend/services/aiPipeline';
 import { historyService } from '@/backend/services/history';
 import { requireAuth } from '@/backend/middleware/auth';

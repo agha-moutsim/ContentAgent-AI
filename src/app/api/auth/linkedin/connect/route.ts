@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { requireAuth } from '@/backend/middleware/auth';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   return await requireAuth(request as any, async (req) => {
     try {

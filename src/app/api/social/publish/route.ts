@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+
+export const dynamic = 'force-dynamic';
 import { requireAuth } from '@/backend/middleware/auth';
 import { TwitterApi } from 'twitter-api-v2';
 import { queryOne, query } from '@/backend/db/client';
