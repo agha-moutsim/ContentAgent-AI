@@ -3,14 +3,18 @@ import { Pool, PoolClient, QueryResult, QueryResultRow } from 'pg';
 import { config } from '../config';
 
 // Connection pool configuration
+const isServerless = process.env.VERCEL || process.env.NETLIFY;
+
 const poolConfig = {
   connectionString: config.database.url,
-  max: 20, 
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 15000, // Increased to 15s
-  maxUses: 7500,
-  statement_timeout: 15000, // Increased to 15s
-  keepAlive: true, // Maintain connection
+  // Serverless functions must have max 1 to prevent connection exhaustion
+  // Local development can use a small pool
+  max: isServerless ? 1 : 5, 
+  idleTimeoutMillis: 10000,
+  connectionTimeoutMillis: 15000,
+  // Required for hosted databases (Supabase, Neon, etc.) from Vercel
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined,
+  keepAlive: true,
 };
 
 // Create connection pool
