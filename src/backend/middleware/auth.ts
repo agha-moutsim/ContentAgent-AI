@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken } from '../utils/jwt';
 import { JWTPayload } from '../types';
 
+import { cookies } from 'next/headers';
+
 export interface AuthenticatedRequest extends NextRequest {
   user?: JWTPayload;
 }
@@ -28,9 +30,10 @@ export async function requireAuth(
     token = authHeader.substring(7);
   }
 
-  // If not in header, try to get from cookie
+  // If not in header, try to get from cookie using next/headers
   if (!token) {
-    token = request.cookies.get('token')?.value;
+    const cookieStore = cookies();
+    token = cookieStore.get('token')?.value;
   }
 
   // If no token found, return 401

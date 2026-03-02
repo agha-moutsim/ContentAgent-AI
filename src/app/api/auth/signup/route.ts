@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { createUser, authenticateUser } from '@/backend/services/auth';
 
 export const dynamic = 'force-dynamic';
@@ -20,16 +21,17 @@ export async function POST(request: Request) {
     // Auto-login after signup: Generate token and set cookie (Requirements 1.6)
     const { token } = await authenticateUser(email, password);
 
-    const response = NextResponse.json({ user }, { status: 201 });
-
-    // Set HTTP-only cookie
-    response.cookies.set('token', token, {
+    // Set HTTP-only cookie using next/headers to ensure reliability on Vercel
+    const cookieStore = cookies();
+    cookieStore.set('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       maxAge: 60 * 60 * 24 * 7, // 1 week
       path: '/',
     });
+
+    const response = NextResponse.json({ user }, { status: 201 });
     
     return response;
   } catch (error: any) {

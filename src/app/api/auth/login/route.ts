@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { authenticateUser } from '@/backend/services/auth';
 
 export const dynamic = 'force-dynamic';
@@ -16,16 +17,17 @@ export async function POST(request: Request) {
 
     const { token, user } = await authenticateUser(email, password);
 
-    const response = NextResponse.json({ user });
-
-    // Set HTTP-only cookie
-    response.cookies.set('token', token, {
+    // Set HTTP-only cookie using next/headers to ensure reliability on Vercel
+    const cookieStore = cookies();
+    cookieStore.set('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       maxAge: 60 * 60 * 24 * 7, // 1 week
       path: '/',
     });
+
+    const response = NextResponse.json({ user });
 
     // Force revalidate the dashboard to ensure fresh data
     const { revalidatePath } = await import('next/cache');
