@@ -1,4 +1,6 @@
 import { cookies } from 'next/headers';
+
+export const dynamic = 'force-dynamic';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 

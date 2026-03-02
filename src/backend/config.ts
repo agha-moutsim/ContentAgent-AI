@@ -28,6 +28,20 @@ interface Config {
 function getEnvVar(key: string, defaultValue?: string): string {
   const value = process.env[key] || defaultValue;
   if (!value) {
+    // During build/static analysis, don't crash if env vars are missing
+    if (process.env.NODE_ENV === 'production' && !process.env.NETLIFY && !process.env.VERCEL) {
+       // On local production builds we still want to know if something is missing
+       // but for Netlify/Vercel build environments, we should be lenient
+    }
+    
+    // Check if we are in a build environment (Next.js build or CI)
+    const isBuild = process.env.NEXT_PHASE === 'phase-production-build' || process.env.CI === 'true';
+    
+    if (isBuild) {
+      console.warn(`[Build Warning] Missing environment variable: ${key}. Using empty string.`);
+      return '';
+    }
+
     throw new Error(`Missing required environment variable: ${key}`);
   }
   return value;
