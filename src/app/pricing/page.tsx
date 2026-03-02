@@ -14,6 +14,7 @@ export default function PricingPage() {
     try {
       const response = await fetch('/api/stripe/create-checkout', {
         method: 'POST',
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
         credentials: 'include',
       });
 

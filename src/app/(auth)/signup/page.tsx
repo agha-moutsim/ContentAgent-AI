@@ -27,6 +27,9 @@ export default function SignupPage() {
         throw new Error(data.error || 'Signup failed');
       }
 
+      const data = await res.json();
+      if (data.token) localStorage.setItem('token', data.token);
+
       // After signup, redirect directly to dashboard as we are now auto-logged in
       // Use window.location.href for a hard refresh to clear client-side router cache
       window.location.href = '/dashboard';

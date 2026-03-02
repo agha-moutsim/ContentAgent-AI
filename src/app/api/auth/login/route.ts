@@ -27,7 +27,7 @@ export async function POST(request: Request) {
       path: '/',
     });
 
-    const response = NextResponse.json({ user });
+    const response = NextResponse.json({ user, token });
 
     // Force revalidate the dashboard to ensure fresh data
     const { revalidatePath } = await import('next/cache');

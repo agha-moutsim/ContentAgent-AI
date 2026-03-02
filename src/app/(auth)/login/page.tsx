@@ -27,6 +27,9 @@ export default function LoginPage() {
         throw new Error(data.error || 'Login failed');
       }
 
+      const data = await res.json();
+      if (data.token) localStorage.setItem('token', data.token);
+
       // Use window.location.href for a hard refresh to clear client-side router cache
       window.location.href = '/dashboard';
     } catch (err: any) {

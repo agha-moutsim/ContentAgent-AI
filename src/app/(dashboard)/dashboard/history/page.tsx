@@ -17,7 +17,10 @@ export default function HistoryPage() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('/api/history', { credentials: 'include' });
+      const response = await fetch('/api/history', { 
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+        credentials: 'include' 
+      });
       if (!response.ok) {
         throw new Error('Database connection timed out. Please try again.');
       }
@@ -38,6 +41,7 @@ export default function HistoryPage() {
     try {
       const response = await fetch(`/api/history/${id}`, {
         method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
         credentials: 'include',
       });
       if (response.ok) {

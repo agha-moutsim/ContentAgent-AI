@@ -31,7 +31,7 @@ export async function POST(request: Request) {
       path: '/',
     });
 
-    const response = NextResponse.json({ user }, { status: 201 });
+    const response = NextResponse.json({ user, token }, { status: 201 });
     
     return response;
   } catch (error: any) {
