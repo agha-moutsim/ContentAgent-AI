@@ -2,6 +2,8 @@ import { NextResponse, NextRequest } from 'next/server';
 import { TwitterApi } from 'twitter-api-v2';
 import { query } from '@/backend/db/client';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
     const url = new URL(request.url);
