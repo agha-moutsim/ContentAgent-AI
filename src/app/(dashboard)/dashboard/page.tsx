@@ -121,6 +121,7 @@ export default function DashboardPage() {
       const response = await fetch('/api/social/publish', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ platform, content }),
       });
 
@@ -155,6 +156,7 @@ export default function DashboardPage() {
       const response = await fetch('/api/social/generate-image', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ prompt, width, height }),
       });
 
@@ -176,7 +178,7 @@ export default function DashboardPage() {
     try {
       // Strategy 1: Try the backend proxy first
       const proxyUrl = `/api/social/download-image?url=${encodeURIComponent(url)}`;
-      const response = await fetch(proxyUrl);
+      const response = await fetch(proxyUrl, { credentials: 'include' });
       
       if (response.ok) {
         const blob = await response.blob();
@@ -241,6 +243,7 @@ export default function DashboardPage() {
       const response = await fetch('/api/scrape', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ url }),
       });
       const data = await response.json();
@@ -271,6 +274,7 @@ export default function DashboardPage() {
       const response = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ idea: generationIdea, sourceContent, tone }),
       });
 
@@ -318,6 +322,7 @@ export default function DashboardPage() {
       const response = await fetch('/api/social/hashtags', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           idea: idea || result.youtubeTitles?.[0] || 'content',
           twitterThread: Array.isArray(result.twitterThread) ? result.twitterThread.join('\n') : result.twitterThread,

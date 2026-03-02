@@ -12,7 +12,7 @@ export default function HistoryDetailPage({ params }: { params: { id: string } }
   const fetchRecord = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/history/${params.id}`);
+      const response = await fetch(`/api/history/${params.id}`, { credentials: 'include' });
       if (response.status === 404) {
         throw new Error('Record not found');
       }

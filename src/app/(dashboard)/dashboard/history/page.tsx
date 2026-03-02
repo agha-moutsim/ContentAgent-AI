@@ -17,7 +17,7 @@ export default function HistoryPage() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('/api/history');
+      const response = await fetch('/api/history', { credentials: 'include' });
       if (!response.ok) {
         throw new Error('Database connection timed out. Please try again.');
       }
@@ -38,6 +38,7 @@ export default function HistoryPage() {
     try {
       const response = await fetch(`/api/history/${id}`, {
         method: 'DELETE',
+        credentials: 'include',
       });
       if (response.ok) {
         setRecords(records.filter(r => r.id !== id));

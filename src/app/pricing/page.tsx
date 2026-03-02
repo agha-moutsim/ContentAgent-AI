@@ -14,6 +14,7 @@ export default function PricingPage() {
     try {
       const response = await fetch('/api/stripe/create-checkout', {
         method: 'POST',
+        credentials: 'include',
       });
 
       const data = await response.json();

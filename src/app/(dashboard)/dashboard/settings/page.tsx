@@ -40,7 +40,7 @@ export default function SettingsPage() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('/api/auth/profile');
+      const response = await fetch('/api/auth/profile', { credentials: 'include' });
       if (response.ok) {
         const data = await response.json();
         setUser(data.user);
@@ -61,6 +61,7 @@ export default function SettingsPage() {
       const res = await fetch('/api/user/brand-voice', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ brandVoice })
       });
       if (res.ok) {
@@ -82,6 +83,7 @@ export default function SettingsPage() {
       const res = await fetch('/api/analyze-voice', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ examples: voiceExamples })
       });
       const data = await res.json();
@@ -105,6 +107,7 @@ export default function SettingsPage() {
     try {
       const response = await fetch('/api/stripe/create-checkout', {
         method: 'POST',
+        credentials: 'include',
       });
       const data = await response.json();
       if (data.url) {
