@@ -13,14 +13,18 @@ export async function GET(request: Request) {
     const token = cookieStore.get('token')?.value;
 
     if (!token) {
-      return NextResponse.json({ error: 'Authentication required', code: 'AUTH_REQUIRED' }, { status: 401 });
+      const reqUrl = new URL(request.url);
+      const baseUrl = `${reqUrl.protocol}//${reqUrl.host}`;
+      return NextResponse.redirect(`${baseUrl}/login`);
     }
 
     let user: any;
     try {
       user = verifyToken(token);
     } catch {
-      return NextResponse.json({ error: 'Invalid session. Please log in again.' }, { status: 401 });
+      const reqUrl = new URL(request.url);
+      const baseUrl = `${reqUrl.protocol}//${reqUrl.host}`;
+      return NextResponse.redirect(`${baseUrl}/login`);
     }
 
     if (!process.env.LINKEDIN_CLIENT_ID || !process.env.LINKEDIN_CLIENT_SECRET) {
