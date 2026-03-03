@@ -11,7 +11,12 @@ export async function GET(request: Request) {
     // This is necessary because this route is accessed via browser navigation (not fetch),
     // so the localStorage Bearer token CANNOT be sent - only the HttpOnly cookie is available
     const cookieStore = cookies();
-    const token = cookieStore.get('token')?.value;
+    let token = cookieStore.get('token')?.value;
+
+    if (!token) {
+      const reqUrl = new URL(request.url);
+      token = reqUrl.searchParams.get('token') || undefined;
+    }
 
     if (!token) {
       const reqUrl = new URL(request.url);

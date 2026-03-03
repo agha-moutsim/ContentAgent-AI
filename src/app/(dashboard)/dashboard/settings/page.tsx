@@ -292,7 +292,12 @@ export default function SettingsPage() {
                   {user?.twitterConnected ? (
                     <div className="px-4 py-2 bg-green-500/10 text-green-400 rounded-xl font-bold text-sm border border-green-500/20">Connected ✓</div>
                   ) : (
-                    <a href="/api/auth/twitter/connect" className="px-6 py-2 bg-[#1DA1F2] hover:bg-[#1a91da] text-white font-bold rounded-xl transition-all text-sm">Connect X</a>
+                    <button 
+                      onClick={() => window.location.href = `/api/auth/twitter/connect?token=${localStorage.getItem('token')}`} 
+                      className="px-6 py-2 bg-[#1DA1F2] hover:bg-[#1a91da] text-white font-bold rounded-xl transition-all text-sm"
+                    >
+                      Connect X
+                    </button>
                   )}
                 </div>
 
@@ -310,7 +315,12 @@ export default function SettingsPage() {
                   {user?.linkedinConnected ? (
                     <div className="px-4 py-2 bg-green-500/10 text-green-400 rounded-xl font-bold text-sm border border-green-500/20">Connected ✓</div>
                   ) : (
-                    <a href="/api/auth/linkedin/connect" className="px-6 py-2 bg-[#0A66C2] hover:bg-[#0958a8] text-white font-bold rounded-xl transition-all text-sm">Connect LinkedIn</a>
+                    <button 
+                      onClick={() => window.location.href = `/api/auth/linkedin/connect?token=${localStorage.getItem('token')}`} 
+                      className="px-6 py-2 bg-[#0A66C2] hover:bg-[#0958a8] text-white font-bold rounded-xl transition-all text-sm"
+                    >
+                      Connect LinkedIn
+                    </button>
                   )}
                 </div>
               </div>
