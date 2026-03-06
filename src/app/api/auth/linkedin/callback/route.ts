@@ -5,9 +5,9 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
-    const url = new URL(request.url);
-    const code = url.searchParams.get('code');
-    const state = url.searchParams.get('state');
+    const { searchParams } = request.nextUrl;
+    const code = searchParams.get('code');
+    const state = searchParams.get('state');
 
     const storedState = request.cookies.get('linkedin_oauth_state')?.value;
     const storedUserId = request.cookies.get('linkedin_oauth_userid')?.value;
